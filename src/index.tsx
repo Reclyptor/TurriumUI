@@ -6,7 +6,7 @@ import Turrium from "./theme/Turrium";
 import Store from "./redux/store";
 import {Provider} from "react-redux";
 import {MuiThemeProvider} from "@material-ui/core";
-import Root from "./container/Root";
+import Root from "./Root";
 
 ReactDOM.render(
     <React.StrictMode>
