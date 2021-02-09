@@ -12,31 +12,35 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import logo from "../resource/logo.png";
-import LoremIpsum from "./LoremIpsum";
 import Images from "../node/Images";
 import Albums from "../node/Albums";
 import Videos from "../node/Videos";
+import {getAuthUser} from "../service/auth";
 
-const Turrium = () => {
+type TurriumProps = {
+    signOut(): void;
+};
+
+const Turrium = (props: TurriumProps) => {
     const [node, setNode] = useState(<></>);
 
     return (
-        <NavBar logoURL={logo} content={node}>
+        <NavBar logoURL={logo} content={node} user={getAuthUser()} signOut={props.signOut}>
             <Typography variant={"overline"} align={"center"}>Navigation</Typography>
             <List>
                 <NavBarOption icon={<AlbumIcon/>} name={'Albums'} action={() => setNode(<Albums />)}/>
                 <NavBarOption icon={<ImageIcon/>} name={'Images'} action={() => setNode(<Images />)}/>
                 <NavBarOption icon={<VideoIcon/>} name={'Videos'} action={() => setNode(<Videos />)}/>
-                <NavBarOption icon={<MediaIcon/>} name={'Media'} action={() => setNode(<LoremIpsum/>)}/>
-                <NavBarOption icon={<TagIcon/>} name={'Tags'} action={() => setNode(<LoremIpsum/>)}/>
+                <NavBarOption icon={<MediaIcon/>} name={'Media'} action={() => setNode(<></>)}/>
+                <NavBarOption icon={<TagIcon/>} name={'Tags'} action={() => setNode(<></>)}/>
             </List>
             <Divider/>
             <List>
-                <NavBarOption icon={<UploadIcon/>} name={'Upload'} action={() => setNode(<LoremIpsum/>)}/>
+                <NavBarOption icon={<UploadIcon/>} name={'Upload'} action={() => setNode(<></>)}/>
             </List>
             <Divider/>
             <List>
-                <NavBarOption icon={<SearchIcon/>} name={'Search'} action={() => setNode(<LoremIpsum/>)}/>
+                <NavBarOption icon={<SearchIcon/>} name={'Search'} action={() => setNode(<></>)}/>
             </List>
         </NavBar>
     );

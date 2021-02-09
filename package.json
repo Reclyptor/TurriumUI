@@ -1,5 +1,6 @@
 {
   "name": "turrium",
+  "title": "Turrium",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -38,7 +39,8 @@
   },
   "devDependencies": {
     "@material-ui/types": "^5.1.0",
-    "@types/axios": "^0.14.0",
+    "@types/gapi": "^0.0.39",
+    "@types/gapi.auth2": "^0.0.52",
     "@types/react-dom": "^17.0.0",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",

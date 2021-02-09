@@ -15,7 +15,9 @@ type ImagesProps = {
 const ConnectedImages = (props: ImagesProps) => {
     const loadImages = () => {
         if (props.images.length === 0) {
-            getImages().then(images => props.submitSetImages(images));
+            getImages()
+                .then(images => props.submitSetImages(images))
+                .catch(() => {});
         }
     }
 

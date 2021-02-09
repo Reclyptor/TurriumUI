@@ -13,9 +13,11 @@ type VideosProps = {
 };
 
 const ConnectedVideos = (props: VideosProps) => {
-    const loadVideos= () => {
+    const loadVideos = () => {
         if (props.videos.length === 0) {
-            getVideos().then(videos => props.submitSetVideos(videos));
+            getVideos()
+                .then(videos => props.submitSetVideos(videos))
+                .catch(() => {});
         }
     }
 

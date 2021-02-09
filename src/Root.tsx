@@ -1,14 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, useRouteMatch } from "react-router-dom";
+import React, {useState} from 'react';
+import {BrowserRouter as Router, Switch, Route, Redirect} from "react-router-dom";
 import Turrium from "./container/Turrium";
-import SignIn from "./container/SignIn";
+import Login from "./container/Login";
+import {isAuthUserSignedIn, signOutAuthUser} from "./service/auth";
 
 const Root = () => {
+    const [isSignedIn, setIsSignedIn] = useState<boolean>(isAuthUserSignedIn());
+    const signOut = () => { signOutAuthUser().then(() => setIsSignedIn(false));};
+
     return (
         <Router>
             <Switch>
-                <Route exact path={'/'}><Turrium /></Route>
-                <Route path={'/signin'}><SignIn /></Route>
+                <Route exact path={'/'}>{isSignedIn ? <Turrium signOut={signOut}/> : <Redirect to={"/login"} />}</Route>
+                <Route exact path={'/login'}>{!isSignedIn ? <Login isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn}/> : <Redirect to={"/"} />}</Route>
             </Switch>
         </Router>
     );

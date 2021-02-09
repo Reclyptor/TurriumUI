@@ -17,7 +17,9 @@ type AlbumsProps = {
 const ConnectedAlbums = (props: AlbumsProps) => {
     const loadAlbums = () => {
         if (props.albums.length === 0) {
-            getAlbums().then(albums => props.submitSetAlbums(albums));
+            getAlbums()
+                .then(albums => props.submitSetAlbums(albums))
+                .catch(() => {});
         }
     }
 

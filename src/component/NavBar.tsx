@@ -10,8 +10,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import UserAvatar from "./UserAvatar";
+import Logo from "./Logo";
+import packageJSON from '../../package.json';
 
 const drawerWidth = 240;
 
@@ -73,9 +74,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type NavBarProps = {
+    user?: gapi.auth2.GoogleUser;
     logoURL: string;
     content: ReactNode;
     children: ReactNode;
+    signOut(): void;
 };
 
 const NavBar = (props: NavBarProps) => {
@@ -99,16 +102,14 @@ const NavBar = (props: NavBarProps) => {
                     <IconButton color={"primary"} aria-label="open drawer" onClick={handleDrawerOpen} edge="start" className={clsx(classes.menuButton, open && classes.hide)}>
                         <MenuIcon />
                     </IconButton>
-                    <Grid container direction={"row"} justify={"flex-start"} alignItems={"center"} spacing={2}>
+                    <Grid container justify={"space-between"} alignItems={"center"}>
                         <Grid item>
-                            <img src={props.logoURL} alt={'logo'} height={"60vh"}/>
+                            <Logo name={packageJSON.name} version={`v${packageJSON.version}`} logoURL={props.logoURL} />
+                        </Grid>
+                        <Grid item>
+                            {props.user && <UserAvatar name={props.user.getBasicProfile().getName()} imgSrc={props.user.getBasicProfile().getImageUrl()} signOut={props.signOut} />}
                         </Grid>
                     </Grid>
-                    <Button onClick={() => window.location.href="/signin"}>
-                        <Typography color={"textPrimary"}>
-                            Login
-                        </Typography>
-                    </Button>
                 </Toolbar>
             </AppBar>
             <Drawer className={classes.drawer} variant="persistent" anchor="left" open={open} classes={{ paper: classes.drawerPaper }}>
